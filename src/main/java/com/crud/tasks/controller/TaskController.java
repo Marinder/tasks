@@ -23,11 +23,11 @@ public class TaskController {
     public void deleteTask(Long taskId) {
 
     }
-    @RequestMapping(method = RequestMethod.PUT, value = "updateTasks")
+    @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
     public TaskDto updateTask(TaskDto taskDto) {
         return new TaskDto(1L, "test title", "test_content");
     }
-    @RequestMapping(method = RequestMethod.POST, value = "createTasks")
+    @RequestMapping(method = RequestMethod.POST, value = "createTask")
     public void createTask(TaskDto taskDto) {
 
     }
