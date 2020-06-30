@@ -19,6 +19,17 @@ public class SimpleEmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    private SimpleMailMessage createMailMessage(final Mail mail) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getMailTo());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getMessage());
+        /*if(mail.getToCc() != null) {
+            mailMessage.setCc(mail.getToCc());
+        }*/
+        return mailMessage;
+    }
+
     public void send(final Mail mail) {
 
         LOGGER.info("Starting email preparation..");
@@ -35,15 +46,6 @@ public class SimpleEmailService {
         }
     }
 
-    private SimpleMailMessage createMailMessage(final Mail mail) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
-        mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMessage());
-        if(mail.getToCc() != null) {
-            mailMessage.setCc(mail.getToCc());
-        }
-        return mailMessage;
-    }
+
 }
 
