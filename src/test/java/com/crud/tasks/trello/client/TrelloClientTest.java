@@ -1,6 +1,6 @@
 package com.crud.tasks.trello.client;
 
-import com.crud.tasks.domain.CreatedTrelloCard;
+import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.config.TrelloConfig;
@@ -18,8 +18,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;
-
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -44,7 +42,7 @@ public class TrelloClientTest {
     public void shouldFetchTrelloBoards() throws URISyntaxException {
         // Given
         TrelloBoardDto[] trelloBoards = new TrelloBoardDto[1];
-        trelloBoards[0] = new TrelloBoardDto("test_board", "test_id", new ArrayList<>());
+        trelloBoards[0] = new TrelloBoardDto("test_id", "test_board", new ArrayList<>());
 
         URI uri = new URI("http://test.com/members/dawidkucharski/boards?key=test&token=test&fields=name,id&lists=all");
 
@@ -67,12 +65,12 @@ public class TrelloClientTest {
 
         URI url = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Test%20description&pos=top&idList=test_id");
 
-        CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard("1","Test task","http://test.com");
+        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("1","Test task","http://test.com");
 
-        when(restTemplate.postForObject(url, null, CreatedTrelloCard.class)).thenReturn(createdTrelloCard);
+        when(restTemplate.postForObject(url, null, CreatedTrelloCardDto.class)).thenReturn(createdTrelloCardDto);
 
         //When
-        CreatedTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
+        CreatedTrelloCardDto newCard = trelloClient.createNewCard(trelloCardDto);
 
         //Then
         assertEquals("1", newCard.getId());
